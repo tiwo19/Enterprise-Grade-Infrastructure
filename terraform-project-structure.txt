@@ -1,0 +1,12 @@
+terraform-project/
+├── backend.tf
+├── provider.tf
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── modules/
+│   ├── vpc/
+│   ├── eks/
+│   ├── ecs/
+│   ├── rds/
+│   └── iam/
