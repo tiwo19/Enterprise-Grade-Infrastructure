@@ -1,0 +1,28 @@
+name: Deploy to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - Main
+      - development
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+
+      - name: Deploy to Lightsail server
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+            ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.PROD_IP }} 'bash /var/www/html/flexdelivery24-admin/deploy.sh'
+          elif [[ "${GITHUB_REF##*/}" == "development" ]]; then
+            ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.STAGING_IP }} 'bash /var/www/html/flexdelivery24-admin/deploy.sh'
+          fi
