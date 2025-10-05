@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to Lightsail server
         run: |
           if [[ "${GITHUB_REF##*/}" == "main" ]]; then
-            ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.PROD_IP }} 'bash/var/www/html/flex-admin/flexdelivery24-admin/deploy.sh'
+            ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.PROD_IP }} 'bash /var/www/html/flex-admin/flexdelivery24-admin/deploy.sh'
           elif [[ "${GITHUB_REF##*/}" == "development" ]]; then
             ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.STAGING_IP }} 'bash /var/www/html/flex-admin/flexdelivery24-admin/deploy.sh'
           fi
